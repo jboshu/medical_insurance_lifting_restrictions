@@ -1,0 +1,149 @@
+========================================
+  医保限制解除工具 - 使用清单
+========================================
+
+【当前文件列表】
+
+核心文件（必需）：
+✓ oracle_db_tool.py      - 主程序（已配置数据库）
+✓ run.bat                - 启动脚本
+✓ requirements.txt       - Python依赖列表
+
+部署工具：
+✓ prepare_offline.bat    - 外网下载离线包（在外网电脑运行）
+✓ install_offline.bat    - 内网安装离线包（在内网电脑运行）
+✓ build_exe.bat          - 打包成EXE文件
+✓ build.spec             - PyInstaller打包配置
+✓ check_python.bat       - Python环境检查工具
+
+文档：
+✓ 使用清单.txt           - 快速参考
+✓ 内网部署指南.txt        - 完整的内网部署说明
+✓ 故障排除.txt           - 常见问题解决
+✓ SQL兼容性说明.txt      - SQL语法兼容说明
+✓ 日志功能说明.txt       - 日志记录功能说明
+✓ README.md              - 在线使用说明
+
+
+【快速开始 - 3个场景】
+
+═══════════════════════════════════════
+场景1：外网电脑准备离线包
+═══════════════════════════════════════
+
+1. 双击运行：prepare_offline.bat
+2. 等待下载完成（生成 offline_packages 文件夹）
+3. 将整个 Medical_insurance_lifting_restrictions 文件夹复制到U盘
+
+
+═══════════════════════════════════════
+场景2：内网电脑直接使用Python脚本
+═══════════════════════════════════════
+
+前提条件：
+• 内网电脑已安装 Python 3.6+
+• 已安装 Oracle Instant Client 并配置PATH
+
+步骤：
+0. 【重要】先检查Python环境：
+   双击运行：check_python.bat
+   
+   如果检查失败，请先安装Python：
+   • 下载：https://www.python.org/downloads/
+   • 安装时勾选“Add Python to PATH”
+   
+1. 从U盘复制整个文件夹到内网电脑
+2. 双击运行：install_offline.bat（安装依赖）
+3. 如需修改数据库配置，编辑 oracle_db_tool.py
+4. 双击运行：run.bat（启动程序）
+
+
+═══════════════════════════════════════
+场景3：内网电脑打包成独立EXE
+═══════════════════════════════════════
+
+前提条件：
+• 内网电脑已安装 Python 3.6+
+• 已安装 Oracle Instant Client 并配置PATH
+
+步骤：
+0. 【重要】先检查Python环境：
+   双击运行：check_python.bat
+   
+1. 从U盘复制整个文件夹到内网电脑
+2. 双击运行：install_offline.bat（安装依赖）
+3. 双击运行：build_exe.bat（打包EXE）
+4. 在 release 文件夹找到“医保限制解除工具.exe”
+5. 将EXE文件和README.md复制到目标电脑
+6. 目标电脑需安装 Oracle Instant Client
+
+
+【重要提醒】
+
+⚠️ Oracle Instant Client 是必需的！
+   • 即使打包成EXE，仍需安装
+   • 推荐版本：19.x 或 21.x
+   • 必须添加到系统PATH环境变量
+   • 下载地址：
+     https://www.oracle.com/database/technologies/instant-client/downloads.html
+
+
+【数据库配置】
+
+当前配置（oracle_db_tool.py 第21-25行）：
+用户名: Z66916
+密码: Z66916
+地址: 192.168.52.8:1521/orcl
+
+修改方法：用记事本打开 oracle_db_tool.py 编辑上述配置
+
+
+【程序功能】
+
+1. 输入 Patient ID（如：T001814223）
+2. 查询最新10条处方记录
+3. 选择记录取消限制
+4. 自动执行：
+   • 更新 drug_days = 1
+   • 获取 doctor_no
+   • 设置 YB_YBSHARE = 0
+
+
+【文件清理说明】
+
+已删除的文件：
+✗ test_install.bat         - 测试安装脚本（已完成使命）
+✗ test_db_connection.py    - 数据库测试脚本（已完成使命）
+✗ setup_oracle_client.bat  - 配置助手（已完成使命）
+✗ download_packages.bat    - 旧版下载脚本（已替换）
+✗ download_simple.bat      - 简化版下载脚本（已替换）
+✗ 快速开始.txt             - 临时指南（已整合）
+✗ 离线部署说明.txt         - 旧版说明（已整合）
+✗ Oracle_Instant_Client安装说明.txt - 已整合到内网部署指南
+
+
+【下一步操作】
+
+根据你的情况选择：
+
+A. 如果还在外网电脑：
+   → 运行 prepare_offline.bat 下载离线包
+   → 复制整个文件夹到U盘
+
+B. 如果已到内网电脑且有Python：
+   → 运行 install_offline.bat 安装依赖
+   → 安装 Oracle Instant Client
+   → 运行 run.bat 启动程序
+
+C. 如果要打包成EXE：
+   → 先完成B的所有步骤
+   → 运行 build_exe.bat 打包
+   → 分发 release 文件夹中的EXE
+
+
+【技术支持】
+
+详细文档：内网部署指南.txt
+问题反馈：联系系统管理员或开发团队
+
+========================================
